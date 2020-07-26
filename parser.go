@@ -9,6 +9,7 @@ import (
 )
 
 func ProcessLine(cmdLine string) {
+	fmt.Println("test")
 	pipeStages := strings.Split(cmdLine, "|")
 	err := ValidatePipeStages(pipeStages)
 	if err != nil {
