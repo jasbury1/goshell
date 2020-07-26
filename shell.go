@@ -1,5 +1,4 @@
 // The main driver and shell management
-
 package goshell
 
 import (
