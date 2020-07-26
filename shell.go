@@ -7,6 +7,7 @@ import (
    "bufio"
 )
 
+var shellName = "Go Shell"
 var prompt = "G$ "
 var startMessage = "Welcome to Go Shell! The shell coded entirely in Go(lang)\n"
 
@@ -16,10 +17,11 @@ func Run() {
    lineReader := bufio.NewReader(os.Stdin)
    for {
       fmt.Printf("%s", prompt)
-      _, err := lineReader.ReadString('\n')
+      cmdLine, err := lineReader.ReadString('\n')
       if err != nil {
          fmt.Fprintln(os.Stderr, err)
       }
+      ProcessLine(cmdLine)
    }
 }
 
