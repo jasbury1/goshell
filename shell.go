@@ -32,3 +32,7 @@ func SetPrompt(newPrompt string) {
 func SetStartMessage(newMessage string) {
    startMessage = newMessage
 }
+
+func SetShellName(newName string) {
+   shellName = newName
+}
