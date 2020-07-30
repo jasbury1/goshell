@@ -1,4 +1,4 @@
-// The main driver and shell management. See LICENSE
+// Package goshell - A simple shell with piping and redirection
 package goshell
 
 import (
@@ -12,17 +12,17 @@ var shellName = "Go Shell"
 var prompt = "G$ "
 var startMessage = "Welcome to Go Shell! The shell coded entirely in Go(lang)\n"
 
-var Reset = "\033[0m"
-var Red = "\033[31m"
-var Green = "\033[32m"
-var Yellow = "\033[33m"
-var Blue = "\033[34m"
-var Purple = "\033[35m"
-var Cyan = "\033[36m"
-var Gray = "\033[37m"
-var White = "\033[97m"
+var reset = "\033[0m"
+var red = "\033[31m"
+var green = "\033[32m"
+var yellow = "\033[33m"
+var blue = "\033[34m"
+var purple = "\033[35m"
+var cyan = "\033[36m"
+var gray = "\033[37m"
+var white = "\033[97m"
 
-// The run loop. Use for starting the shell
+// Run - The run loop. Use for starting the shell
 func Run() {
 	// This shell is currently Unix only
 	if runtime.GOOS == "windows" {
@@ -31,13 +31,13 @@ func Run() {
 	}
 
 	// Display a start message to the user
-	fmt.Println(Green + startMessage + Reset)
+	fmt.Println(green + startMessage + reset)
 
 	lineReader := bufio.NewReader(os.Stdin)
 
 	// The main loop of requesting input and processing it
 	for {
-		fmt.Printf(Green+"%s"+Reset, prompt)
+		fmt.Printf(green+"%s"+reset, prompt)
 		cmdLine, err := lineReader.ReadString('\n')
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)
@@ -46,30 +46,30 @@ func Run() {
 	}
 }
 
-// Change the input prompter to a new string
+// SetPrompt - Change the input prompter to a new string
 func SetPrompt(newPrompt string) {
 	prompt = newPrompt
 }
 
-// Change the welcome message to a new string
+// SetStartMessage - change the welcome message to a new string
 func SetStartMessage(newMessage string) {
 	startMessage = newMessage
 }
 
-// Set the name of the shell. Used in debugging
+// SetShellName - Set the name of the shell used in errors and more
 func SetShellName(newName string) {
 	shellName = newName
 }
 
-// Disable the use of special colors
+// DisableColors - Disable the use of special colors
 func DisableColors() {
-	Reset = ""
-	Red = ""
-	Green = ""
-	Yellow = ""
-	Blue = ""
-	Purple = ""
-	Cyan = ""
-	Gray = ""
-	White = ""
+	reset = ""
+	red = ""
+	green = ""
+	yellow = ""
+	blue = ""
+	purple = ""
+	cyan = ""
+	gray = ""
+	white = ""
 }

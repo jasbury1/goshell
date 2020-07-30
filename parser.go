@@ -1,4 +1,4 @@
-// Parse lines and pipelines. See LICENSE
+// Package goshell - A simple shell with piping and redirection
 package goshell
 
 import (
@@ -51,7 +51,7 @@ func processLine(cmdLine string) {
 func createPipeStages(commandList *[]exec.Cmd, stages []string) error {
 
 	for _, stage := range stages {
-		cmd, err := CreateCommand(stage)
+		cmd, err := createCommand(stage)
 		if err != nil {
 			return err
 		}
@@ -61,7 +61,7 @@ func createPipeStages(commandList *[]exec.Cmd, stages []string) error {
 }
 
 // Creates a command using a string of one pipeline step
-func CreateCommand(pipeStage string) (*exec.Cmd, error) {
+func createCommand(pipeStage string) (*exec.Cmd, error) {
 	args := strings.Fields(pipeStage)
 	executionArgs := make([]string, 0)
 	var cmd *exec.Cmd
@@ -78,7 +78,7 @@ func CreateCommand(pipeStage string) (*exec.Cmd, error) {
 	for i < len(args) {
 		if strings.HasPrefix(args[i], inRedirectChar) {
 			if i == 0 {
-				return nil, errors.New("Command must preceed input redirection")
+				return nil, errors.New("Command must precede input redirection")
 			}
 			if len(args[i]) > 1 {
 				inRedirectFile = args[i][1:]
@@ -91,7 +91,7 @@ func CreateCommand(pipeStage string) (*exec.Cmd, error) {
 			}
 		} else if strings.HasPrefix(args[i], outRedirectChar) {
 			if i == 0 {
-				return nil, errors.New("Command must preceed output redirection")
+				return nil, errors.New("Command must precede output redirection")
 			}
 			if len(args[i]) > 1 {
 				outRedirectFile = args[i][1:]
@@ -144,7 +144,7 @@ func setRedirects(cmd *exec.Cmd, inFile string, outFile string) error {
 func connectPipeline(commandList []exec.Cmd) error {
 	var err error
 
-	for i, _ := range commandList {
+	for i := range commandList {
 		if i == len(commandList)-1 {
 			break
 		}
@@ -174,7 +174,7 @@ func executePipeline(commandList []exec.Cmd) error {
 	}
 
 	// Make the commands wait for completion
-	for i, _ := range commandList {
+	for i := range commandList {
 		if i == 0 {
 			err := commandList[i].Run()
 			if err != nil {
