@@ -32,23 +32,18 @@ func ProcessLine(cmdLine string) {
 		fmt.Fprintf(os.Stderr, "%v: %v.\n", shellName, err) 
 	}
 
-	fmt.Printf("%v\n", commandList)
-
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "%v: %v.\n", shellName, err)
 		return
 	}
 	
 	err = ConnectPipeline(commandList)
-	fmt.Printf("%v\n", commandList)	
-
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "%v: Error with pipes: %v.\n", shellName, err)
 		return
 	}
 
 	err = ExecutePipeline(commandList)
-
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "%v: Error during execution: %v\n", shellName, err)
 		return
@@ -65,14 +60,6 @@ func CreatePipeStages(commandList *[]exec.Cmd, stages []string) error {
 		*commandList = append(*commandList, *cmd)
 
 	}
-	/*
-	if len(pipeline) != 1 {
-		err := checkvalidRedirects(pipeline)
-		if err != nil {
-			return nil, err
-		}
-	}
-	*/
 
 	return nil
 }
@@ -151,20 +138,6 @@ func setRedirects(cmd *exec.Cmd, inFile string, outFile string) error {
 	return nil
 }
 
-/*
-func checkvalidRedirects(pipeline []command) error {
-	for i, cmd := range pipeline {
-		if i != 0 && cmd.inFd != 0 {
-			return errors.New("Ambiguous input for file redirection and pipe")
-		}
-		if i != len(pipeline) - 1 && cmd.outFd != 0 {
-			return errors.New("Ambiguous output for file redirection and pipe")
-		}
-	}
-	return nil
-}
-*/
-
 func ConnectPipeline(commandList []exec.Cmd) error {
 	var err error
 
@@ -172,8 +145,9 @@ func ConnectPipeline(commandList []exec.Cmd) error {
 		if i == len(commandList) - 1 {
 			break
 		}
-		fmt.Println("Pipe")
-
+		if(commandList[i + 1].Stdin != nil) {
+			return errors.New("Ambiguous input for file redirection and pipe")
+		}
 		commandList[i + 1].Stdin, err = commandList[i].StdoutPipe()
 		if err != nil {
 			return err
