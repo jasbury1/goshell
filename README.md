@@ -14,7 +14,7 @@ This was originally created as a playgroud for me to learn a few of Go's OS/Syst
 ```
 package main
 
-import "goshell"
+import "github.com/jasbury1/goshell"
 
 func main() {
   // Choose a prompt, leave out to use the default
