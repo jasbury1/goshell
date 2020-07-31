@@ -1,5 +1,5 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/jasbury1/goshell)](https://goreportcard.com/report/github.com/jasbury1/goshell)
-# goshell
+## Goshell Intro
 
 A WIP package with some fun stuff planned! Stay tuned...
 
@@ -8,3 +8,17 @@ As it is now, this shell is as straightforward as I could make it while still re
 This was originally created as a playgroud for me to learn a few of Go's OS/Systems features.
 
 ![alt text](https://github.com/jasbury1/goshell/blob/master/demo:images/Screen%20Shot%202020-07-30%20at%205.37.12%20PM.png)
+
+# Usage
+
+```
+package main
+
+import "goshell"
+
+func main() {
+  // Choose a prompt, leave out to use the default
+	goshell.SetPrompt("GSHELL$ ")
+	goshell.Run()
+}
+```
