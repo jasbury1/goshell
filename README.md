@@ -7,4 +7,4 @@ As it is now, this shell is as straightforward as I could make it while still re
 
 This was originally created as a playgroud for me to learn a few of Go's OS/Systems features.
 
-![alt text](https://github.com/jasbury1/goshell/blob/master/Screen Shot 2020-07-30 at 5.37.12 PM.png?raw=true)
+![alt text](https://github.com/jasbury1/goshell/blob/master/demo:images/Screen%20Shot%202020-07-30%20at%205.37.12%20PM.png)
